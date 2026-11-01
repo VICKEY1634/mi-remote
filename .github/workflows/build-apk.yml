@@ -22,12 +22,15 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install Ionic & Capacitor Globally
+        run: npm install -g @capacitor/cli @ionic/cli
+
       - name: Install Dependencies
         run: npm install
 
-      - name: Create Android Project Structure
+      - name: Initialize Capacitor & Add Android Platform
         run: |
-          npx cap init MiRemote com.mi.remote --web-dir www
+          npx cap init MiRemote com.mi.remote --web-dir www --yes
           npx cap add android
 
       - name: Build APK with Gradle
