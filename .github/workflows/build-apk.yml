@@ -21,11 +21,18 @@ jobs:
       with:
         node-version: 18
 
-    - name: Build App
+    - name: Install Dependencies & Capacitor CLI
       run: |
         npm install
+        npm install -g @capacitor/cli @capacitor/core
+
+    - name: Initialize Capacitor Android Platform
+      run: |
         npx cap init MiRemote com.mi.remote --web-dir www --yes
         npx cap add android
+
+    - name: Build APK with Gradle
+      run: |
         cd android
         chmod +x gradlew
         ./gradlew assembleDebug
@@ -33,5 +40,5 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-digest
+        name: app-debug
         path: android/app/build/outputs/apk/debug/app-debug.apk
