@@ -26,8 +26,9 @@ jobs:
         npm install
         npm install -g @capacitor/cli @capacitor/core
 
-    - name: Add Android Platform
+    - name: Initialize Capacitor Config & Add Android
       run: |
+        npx cap init MiRemote com.mi.remote --web-dir www --yes
         npx cap add android
 
     - name: Build APK with Gradle
