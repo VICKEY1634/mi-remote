@@ -1,0 +1,6 @@
+{
+  "appId": "com.mi.remote",
+  "appName": "MiRemote",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
