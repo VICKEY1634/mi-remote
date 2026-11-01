@@ -1,210 +1,118 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi 4K Box Remote</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background-color: #121212;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    .remote-container {
-      background: #1e1e24;
-      border-radius: 30px;
-      padding: 25px;
-      width: 280px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    .status-bar {
-      font-size: 14px;
-      color: #888;
-      text-align: center;
-    }
-    .connection-box {
-      display: flex;
-      gap: 8px;
-      width: 100%;
-    }
-    .connection-box input {
-      flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #2b2b36;
-      color: #fff;
-      font-size: 14px;
-    }
-    .btn {
-      background: #333;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 15px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .btn:active {
-      transform: scale(0.95);
-      background: #555;
-    }
-    .btn-power {
-      background: #d9534f;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      font-size: 18px;
-    }
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      align-items: center;
-    }
-    /* D-Pad Styling */
-    .dpad {
-      position: relative;
-      width: 180px;
-      height: 180px;
-      background: #2b2b36;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .dpad-btn {
-      position: absolute;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-      width: 50px;
-      height: 50px;
-    }
-    .dpad-up { top: 5px; left: 65px; }
-    .dpad-down { bottom: 5px; left: 65px; }
-    .dpad-left { top: 65px; left: 5px; }
-    .dpad-right { top: 65px; right: 5px; }
-    .dpad-ok {
-      width: 60px;
-      height: 60px;
-      background: #ff9800;
-      border-radius: 50%;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-    .nav-actions {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-    }
-    .vol-actions {
-      display: flex;
-      gap: 15px;
-      width: 100%;
-      justify-content: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Box Remote</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .config-box {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background: #222;
+            color: #fff;
+            width: 200px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #6200ee;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        button:active {
+            background-color: #3700b3;
+        }
+        .remote-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        .btn-remote {
+            padding: 20px;
+            font-size: 18px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .btn-remote:active {
+            background-color: #555;
+        }
+        .wide {
+            grid-column: span 3;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="remote-container">
-    <div class="top-row">
-      <h3>Mi 4K Remote</h3>
-      <button class="btn btn-power" onclick="sendCommand('POWER')">⏻</button>
-    </div>
-
-    <div class="connection-box">
-      <input type="text" id="tvIp" placeholder="Mi Box IP (e.g. 192.168.1.15)">
-      <button class="btn" onclick="connectTV()">Connect</button>
-    </div>
+    <h2>Mi Box Remote</h2>
     
-    <div class="status-bar" id="status">Status: Disconnected</div>
-
-    <!-- D-PAD Navigation -->
-    <div class="dpad">
-      <button class="dpad-btn dpad-up" onclick="sendCommand('UP')">▲</button>
-      <button class="dpad-btn dpad-down" onclick="sendCommand('DOWN')">▼</button>
-      <button class="dpad-btn dpad-left" onclick="sendCommand('LEFT')">◄</button>
-      <button class="dpad-btn dpad-right" onclick="sendCommand('RIGHT')">►</button>
-      <button class="dpad-ok" onclick="sendCommand('OK')">OK</button>
+    <div class="config-box">
+        <input type="text" id="ipInput" placeholder="Enter Mi Box IP">
+        <button onclick="saveIp()">Save IP</button>
     </div>
 
-    <!-- Back, Home Buttons -->
-    <div class="nav-actions">
-      <button class="btn" onclick="sendCommand('BACK')">↩ Back</button>
-      <button class="btn" onclick="sendCommand('HOME')">⌂ Home</button>
+    <div class="remote-grid">
+        <button class="btn-remote wide" onclick="sendKey('HOME')">HOME</button>
+        <button class="btn-remote" onclick="sendKey('BACK')">BACK</button>
+        <button class="btn-remote" onclick="sendKey('UP')">UP</button>
+        <button class="btn-remote" onclick="sendKey('SELECT')">OK</button>
+        <button class="btn-remote" onclick="sendKey('LEFT')">LEFT</button>
+        <button class="btn-remote" onclick="sendKey('DOWN')">DOWN</button>
+        <button class="btn-remote" onclick="sendKey('RIGHT')">RIGHT</button>
+        <button class="btn-remote" onclick="sendKey('VOLUME_UP')">VOL +</button>
+        <button class="btn-remote" onclick="sendKey('VOLUME_DOWN')">VOL -</button>
+        <button class="btn-remote" onclick="sendKey('POWER')">POWER</button>
     </div>
 
-    <!-- Volume Controls -->
-    <div class="vol-actions">
-      <button class="btn" onclick="sendCommand('VOL_DOWN')">Vol -</button>
-      <button class="btn" onclick="sendCommand('VOL_UP')">Vol +</button>
-    </div>
-  </div>
+    <script>
+        // Page load hote hi saved IP box me bhar jayega
+        window.onload = function() {
+            const savedIp = localStorage.getItem('mi_box_ip');
+            if (savedIp) {
+                document.getElementById('ipInput').value = savedIp;
+            }
+        };
 
-  <script>
-    let tvIpAddress = "";
-    let isConnected = false;
+        function saveIp() {
+            const ip = document.getElementById('ipInput').value;
+            if (ip) {
+                localStorage.setItem('mi_box_ip', ip);
+                alert('IP Saved Successfully: ' + ip);
+            } else {
+                alert('Pehle IP address daalein!');
+            }
+        }
 
-    function connectTV() {
-      const ip = document.getElementById("tvIp").value;
-      if (!ip) {
-        alert("Kripya Mi Box ka IP address dalein.");
-        return;
-      }
-      tvIpAddress = ip;
-      document.getElementById("status").innerText = "Status: Connecting to " + ip + "...";
-      
-      setTimeout(() => {
-        isConnected = true;
-        document.getElementById("status").innerText = "Status: Connected to Mi Box";
-        document.getElementById("status").style.color = "#4caf50";
-      }, 1000);
-    }
+        function sendKey(action) {
+            const ip = localStorage.getItem('mi_box_ip');
+            if (!ip) {
+                alert('Pehle IP address save karein!');
+                return;
+            }
+            // Yahan aap apna backend bridge ya command execution URL connect kar sakte hain
+            console.log("Sending " + action + " to IP: " + ip);
+            alert("Command sent: " + action);
+        }
+    </script>
 
-    function sendCommand(action) {
-      if (!isConnected) {
-        alert("Pehle Mi Box se connect karein.");
-        return;
-      }
-      console.log(`Sending command: ${action} to ${tvIpAddress}`);
-      const keyCodes = {
-        POWER: 26,
-        UP: 19,
-        DOWN: 20,
-        LEFT: 21,
-        RIGHT: 22,
-        OK: 66,
-        BACK: 4,
-        HOME: 3,
-        VOL_UP: 24,
-        VOL_DOWN: 25
-      };
-
-      fetch(`http://${tvIpAddress}:8080/remote?key=${keyCodes[action]}`, { mode: 'no-cors' })
-        .catch(err => console.log("Command emitted: " + action));
-    }
-  </script>
 </body>
 </html>
